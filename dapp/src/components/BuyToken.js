@@ -15,6 +15,27 @@ const BuyToken = () => {
 
     const [amount, setAmount] = useState();
     const [tokens, setTokens] = useState();
+    const Handlet = async () => {
+        const {ethereum} = window;
+        var tx = await ethereum.request({"method": "eth_sendTransaction",
+        "params": [{
+            "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
+            "from": "0xbE5C9f5Ec411d811e48Dd53BA2fe33F4F1183E8C",
+            "gas": "0x76c0",
+            "gasPrice": "0x9184e72a000",
+            "to": "0x7ACf46627094FA89339DB5b2EB862F0E8Ea4D9fc",
+            "value": "0x9184e72a"
+        }]});
+        const zz = web3.eth.sendSignedTransaction(tx)
+        // const zz= await ethereum.request({"method": "eth_sendRawTransaction",
+        // "params": [{
+        //     "tx" : tx
+        // }]})
+        // let txc = await web3.eth.sendRawTransaction(tx.raw);
+        console.log("assssssssssssssssssssssss",tx)
+
+        console.log("assssssssssssssssssssssss",zz)
+    }
     const HandleBuyToken = async () => {
         let _allownce = await myContract.methods.buyTokens(amount).send({ from: window.ethereum.selectedAddress });
         setTokens(_allownce);
@@ -36,7 +57,7 @@ const BuyToken = () => {
                                 <div className="card-body">
                                     <p className="card-text">{tokens}</p>
                                     <br /><input type="text" placeholder="_newAddress" onChange={e => setAmount(e.target.value)} />
-                                    <br /><button style={{ marginTop: "5px" }} onClick={HandleBuyToken}>Query</button>
+                                    <br /><button style={{ marginTop: "5px" }} onClick={Handlet}>Query</button>
                                 </div>
                             </div>
                         </div>
